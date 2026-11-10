@@ -210,7 +210,6 @@ button:hover { background: var(--primary-color); transform: translateY(-1px); }
 .progress-bar-bg { width: 100%; height: 14px; background: var(--border-color); border-radius: 8px; overflow: hidden; margin: 10px 0; }
 .progress-bar-fill { height: 100%; background: var(--accent-color); width: 0%; transition: width 0.2s ease; }
 
-/* إطار المصحف الشريف المصمم لملف standard1-quran.pdf */
 .quran-container {
     background: linear-gradient(145deg, #0b2e1b, #1b4332);
     padding: 12px;
@@ -229,6 +228,52 @@ button:hover { background: var(--primary-color); transform: translateY(-1px); }
 audio { width: 100%; margin-top: 12px; border-radius: 8px; }
 footer { text-align: center; padding: 25px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 30px; background: var(--card-bg); }
 html, body { max-width: 100%; overflow-x: hidden; }
+
+.dua-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+.dua-card:hover {
+    transform: translateY(-2px);
+}
+.dua-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    border-bottom: 1px dashed var(--accent-color);
+    padding-bottom: 6px;
+}
+.dua-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--secondary-color);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 12px 16px;
+    border-radius: 10px;
+    border-right: 4px solid var(--accent-color);
+    margin-bottom: 12px;
+}
+.dua-fadl {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+.dua-fadl-title {
+    font-weight: bold;
+    color: var(--accent-color);
+    display: inline-block;
+    margin-left: 5px;
+}
 </style>
 </head>
 
@@ -249,7 +294,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <button class="tab-btn" onclick="switchTab('namesTab')">🌟 الأسماء الحسنى</button>
         <button class="tab-btn" onclick="switchTab('prophetTab')">💚 الصلاة على النبي</button>
         <button class="tab-btn" onclick="switchTab('istighfarTab')"> استغفار</button>
-        <button class="tab-btn" onclick="switchTab('adhkarTab')">✨ الأذكار الشاملة</button>
+        <button class="tab-btn" onclick="switchTab('adhkarTab')">✨ الأذكار والأدعية</button>
         <button class="tab-btn" onclick="switchTab('plansTab')">📅 الختمة</button>
         <button class="tab-btn" onclick="switchTab('quranMoodTab')">✨ قرآن مود</button>
         <button class="tab-btn" onclick="switchTab('tasbeehTab')">📿 التسابيح</button>
@@ -259,7 +304,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 <main>
 
-    <!-- الرئيسية -->
     <section id="homeTab" class="section-pane active">
         <div class="box">
             <h2>✨ تأملات قرآنية - آية اليوم</h2>
@@ -271,7 +315,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- صلاتي والآذان -->
     <section id="salatyTab" class="section-pane">
         <div class="box">
             <h2>🕋 مواقيت الصلاة والآذان والتنبيهات</h2>
@@ -282,7 +325,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
                 </label>
                 <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
                     <input type="checkbox" id="muteModeCheck" onchange="saveAdhanSettings()">
-                    🔇 تفعيل وضع الصامت (إيقاف تشغيل صوت الآذان تلقائياً)
+                    🔇 تفعيل وضع الصامت (إيقاف تشغيل صوت الآذان تلقائياً إذا كان الهاتف صامتاً)
                 </label>
             </div>
 
@@ -304,22 +347,16 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- القرآن الكريم (من ملف standard1-quran.pdf الخاص بك) -->
     <section id="quranTab" class="section-pane">
         <div class="box">
             <h2>📖 قراءة القرآن الكريم</h2>
             <p style="margin-bottom: 12px; color: var(--text-muted);">تصفح المصحف الشريف بسهولة مباشرة من ملف المصحف الخاص بك:</p>
-            <div class="quran-container" style="text-align:center;">
-                <p style="color:#fff;margin:8px 0 14px;">المصحف يُفتح داخل التطبيق من ملف PDF المحلي دون الحاجة إلى الإنترنت.</p>
-                <button onclick="openOfflineQuran()" style="max-width:320px;margin:0 auto;padding:14px;background:#d4af37;color:#0b2e1b;">
-                    📖 فتح المصحف الشريف
-                </button>
-                <p id="quranPdfStatus" style="color:#fff;margin-top:10px;font-size:.85rem;"></p>
+            <div class="quran-container">
+                <iframe src="standard1-quran.pdf" class="pdf-viewer-frame" title="قراءة القرآن الكريم"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- الاستماع -->
     <section id="audioTab" class="section-pane">
         <div class="box">
             <h2>🎧 استماع القرآن الكريم</h2>
@@ -346,7 +383,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- الإذاعة -->
     <section id="radioTab" class="section-pane">
         <div class="box">
             <h2>📻 إذاعة القرآن الكريم من القاهرة</h2>
@@ -356,7 +392,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- أسماء الله الحسنى -->
     <section id="namesTab" class="section-pane">
         <div class="box">
             <h2>🌟 أسماء الله الحسنى وصفاته</h2>
@@ -367,7 +402,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- الصلاة على النبي -->
     <section id="prophetTab" class="section-pane">
         <div class="box">
             <h2>💚 عداد الصلاة على النبي ﷺ</h2>
@@ -380,7 +414,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- الاستغفار -->
     <section id="istighfarTab" class="section-pane">
         <div class="box">
             <h2> استغفار - عداد الاستغفار</h2>
@@ -393,24 +426,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- الأذكار الموسعة -->
     <section id="adhkarTab" class="section-pane">
         <div class="box">
-            <h2>✨ الأذكار الشاملة والأوراد اليومية الكاملة</h2>
+            <h2>✨ الأذكار الشاملة والأدعية المأثورة</h2>
             <div style="display: flex; gap: 6px; margin-bottom: 15px; flex-wrap: wrap;">
                 <button class="tab-btn active" onclick="loadAdhkarCategory('sabah', event)">أذكار الصباح</button>
                 <button class="tab-btn" onclick="loadAdhkarCategory('masaa', event)">أذكار المساء</button>
                 <button class="tab-btn" onclick="loadAdhkarCategory('sleep', event)">أذكار النوم</button>
                 <button class="tab-btn" onclick="loadAdhkarCategory('wakeup', event)">أذكار الاستيقاظ</button>
                 <button class="tab-btn" onclick="loadAdhkarCategory('prayer', event)">أذكار الصلاة</button>
-                <button class="tab-btn" onclick="loadAdhkarCategory('salahDuas', event)">🤲 أدعية الصلاة والوضوء</button>
-                <button class="tab-btn" onclick="loadAdhkarCategory('rawatib', event)">🌙 سنن الرواتب وفضلها</button>
+                <button class="tab-btn" onclick="loadAdhkarCategory('duas', event)">🤲 قسم الأدعية الشاملة</button>
             </div>
             <div id="adhkarContainer"></div>
         </div>
     </section>
 
-    <!-- خطة الختمة -->
     <section id="plansTab" class="section-pane">
         <div class="box">
             <h2>📅 حاسبة الختمة ومتابعة الأهداف</h2>
@@ -431,7 +461,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- قرآن مود -->
     <section id="quranMoodTab" class="section-pane">
         <div class="box">
             <h2>✨ قرآن مود (الحالات الإيمانية والنفسية)</h2>
@@ -451,7 +480,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
     </section>
 
-    <!-- التسابيح -->
     <section id="tasbeehTab" class="section-pane">
         <div class="box" style="text-align: center;">
             <h2>📿 التسابيح الذكية</h2>
@@ -487,7 +515,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 </main>
 
-<!-- شاشة الآذان الخلفية Fullscreen -->
 <div id="adhanOverlay">
     <div class="adhan-title" id="adhanOverlayTitle">الله أكبر - حان وقت الآذان</div>
     <div class="adhan-sub" id="adhanOverlayPrayer">حي على الصلاة</div>
@@ -515,15 +542,6 @@ surahs.forEach((name, index) => {
     audioSurahSelect.innerHTML += `<option value="${index + 1}">${index + 1}. سورة ${name}</option>`;
 });
 
-function openOfflineQuran() {
-    if (window.AndroidPrayer && typeof window.AndroidPrayer.openQuranPdf === "function") {
-        window.AndroidPrayer.openQuranPdf();
-    } else {
-        const status = document.getElementById("quranPdfStatus");
-        if (status) status.textContent = "عارض المصحف متاح عند تشغيل الصفحة داخل تطبيق APK.";
-    }
-}
-
 function switchTab(tabId) {
     document.querySelectorAll('.section-pane').forEach(p => p.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
@@ -535,7 +553,6 @@ function toggleDarkMode() {
 }
 if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
 
-// قسم آية اليوم
 const versesOfTheDay = [
     { text: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", source: "سورة الشرح - آية 6" },
     { text: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", source: "سورة الرعد - آية 28" },
@@ -559,16 +576,6 @@ function loadVerseOfDay() {
     document.getElementById("verseDaySource").textContent = v.source;
 }
 loadVerseOfDay();
-
-const adhanAudioFiles = [
-    { name: "أذان عبدالباسط", file: "اذان عبدالباسط.mp3" },
-    { name: "محمد رفعت", file: "اذان محمد رفعت.mp3" },
-    { name: "ناصر القطامي", file: "اذان ناصر القطامي.mp3" },
-    { name: "مشاري بن راشد", file: "اذان مشاري بن راشد.mp3" },
-    { name: "محمود خليل الحصري", file: "اذان محمود خليل الحصري.mp3" },
-    { name: "محمد علي البنا", file: "اذان محمد علي البنا.mp3" },
-    { name: "مصطفى إسماعيل", file: "اذان مصطفي اسماعيل.mp3" }
-];
 
 let globalDefaultAudio = localStorage.getItem('global_adhan_default') || "اذان عبدالباسط.mp3";
 document.getElementById('globalDefaultAdhan').value = globalDefaultAudio;
@@ -725,7 +732,7 @@ function stopAdhanOverlay() {
     player.currentTime = 0;
 }
 
-// كتم الصوت وإيقاف الآذان عند الضغط على أزرار الصوت بجانب الهاتف
+/* الاستماع لأزرار الصوت الجانبية في الهاتف لإيقاف الأذان فوراً عند الضغط عليها */
 window.addEventListener('keydown', function(event) {
     const player = document.getElementById("adhanAudioPlayer");
     if (!player.paused || document.getElementById('adhanOverlay').classList.contains('active')) {
@@ -735,7 +742,6 @@ window.addEventListener('keydown', function(event) {
     }
 });
 
-// روابط بث احتياطية ورسمية متعددة لإذاعة القرآن الكريم لضمان التشغيل المستقر
 function playRadioCairo() {
     const audio = document.getElementById("cairoRadioAudio");
     const streamUrls = [
@@ -821,13 +827,12 @@ function resetIstighfar() {
     localStorage.setItem('istighfar_count', 0);
 }
 
-// الأذكار الموسعة والشاملة
 const adhkarData = {
     sabah: [
         { title: "آية الكرسي", desc: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ." },
         { title: "سورة الإخلاص والمعوذات (تقرأ ثلاث مرات)", desc: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ قُلْ هُوَ اللَّهُ أَحَدٌ... (وكذلك سورة الفلق والناس تكفيك من كل شيء)." },
         { title: "أصبحنا وأصبح الملك لله والحمد لله", desc: "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير، رب أسألك خير ما في هذا اليوم وخير ما بعده، وأعوذ بك من شر ما في هذا اليوم وشر ما بعده." },
-        { title: "سيد الاستغفار", desc: "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء لك بذنبي فاغفر لي؛ إنه لا يغفر الذنوب إلا أنت." },
+        { title: "سيد الاستغفار", desc: "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء لك بنعمتك فاغفر لي؛ إنه لا يغفر الذنوب إلا أنت." },
         { title: "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً (ثلاث مرات)", desc: "من قالها حين يصبح وحين يمسي كان حقاً على الله أن يرضيه يوم القيامة." },
         { title: "اللهم إني أصبحت أشهُدك وأشهُد حملة عرشك وملائكتك وجميع خلقك", desc: "أنك أنت الله لا إله إلا أنت وحدك لا شريك لك، وأن محمداً عبدك ورسولك (تقرأ 4 مرات)." },
         { title: "حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم (سبع مرات)", desc: "كفاه الله ما أهمه من أمر الدنيا والآخرة." },
@@ -868,146 +873,61 @@ const adhkarData = {
         { title: "اللهم أعني على ذكرك وشكرك وحسن عبادتك", desc: "تقال في دبر كل صلاة مكتوبة." },
         { title: "آية الكرسي بعد كل صلاة مكتوبة", desc: "من قرأها دبر كل صلاة لم يمنعه من دخول الجنة إلا أن يموت." }
     ],
-    salahDuas: [
-        {
-            title: "دعاء الاستفتاح بعد تكبيرة الإحرام",
-            desc: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلَا إِلَهَ غَيْرُكَ.",
-            virtue: "يُقال بعد تكبيرة الإحرام وقبل قراءة الفاتحة. وهو ثناء على الله، وقد وردت صيغ صحيحة أخرى للاستفتاح؛ وهذه صيغة واردة في السنة.",
-            source: "سنن ابن ماجه 804؛ وحسنه الألباني."
+    duas: [
+        { 
+            title: "1. دعاء عند الوضوء", 
+            text: "قبل الوضوء: «بِسْمِ اللَّهِ»\nبعد الوضوء: «أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ»", 
+            fadl: "فضل التسمية أنها تبدأ الطهارة باسم الله، وعن الفضل بعد الوضوء قال النبي ﷺ: «مَنْ تَوَضَّأَ فَأَحْسَنَ الْوُضُوءَ ثُمَّ قَالَ ذلك... فُتِحَتْ لَهُ أَبْوَابُ الْجَنَّةِ الثَّمَانِيَةُ يَدْخُلُ مِنْ أَيِّهَا شَاءَ» [رواه مسلم]." 
         },
-        {
-            title: "دعاء الركوع",
-            desc: "سُبْحَانَ رَبِّيَ الْعَظِيمِ. (ويُكررها المصلي في ركوعه).",
-            virtue: "هذا هو الذكر الوارد في الركوع، وفي الركوع تعظيم لله سبحانه.",
-            source: "صحيح مسلم، كتاب الصلاة."
+        { 
+            title: "2. دعاء بعد الأذان", 
+            text: "«اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ»", 
+            fadl: "قال النبي ﷺ: «مَنْ قَالَ حِينَ يَسْمَعُ النِّدَاءَ ذلك... حَلَّتْ لَهُ شَفَاعَتِي يَوْمَ الْقِيَامَةِ» [رواه البخاري]." 
         },
-        {
-            title: "دعاء آخر في الركوع والسجود",
-            desc: "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ، اللَّهُمَّ اغْفِرْ لِي.",
-            virtue: "ثبت عن عائشة رضي الله عنها أن النبي ﷺ كان يقوله في ركوعه وسجوده.",
-            source: "صحيح البخاري 794."
+        { 
+            title: "3. دعاء الاستفتاح في الصلاة", 
+            text: "«سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلاَ إِلَهَ غَيْرُكَ»\n(أو: «اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ كَمَا بَاعَدْتَ بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ، اللَّهُمَّ نَقِّنِي مِنَ الْخَطَايَا كَمَا يُنَقَّى الثَّوْبُ الأَبْيَضُ مِنَ الدَّنَسِ، اللَّهُمَّ اغْسِلْ خَطَايَايَ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ»)", 
+            fadl: "سنة مؤكدة في بداية الصلاة بعد تكبيرة الإحرام، وفضله تعظيم الله وتنزيهه والاستفتاح بكلام محبوب إلى الله والاعتراف بالتقصير واستجابة الدعاء والمغفرة." 
         },
-        {
-            title: "دعاء السجود",
-            desc: "سُبْحَانَ رَبِّيَ الْأَعْلَى.",
-            virtue: "يقال في السجود تعظيماً لله. ويُستحب الإكثار من الدعاء في السجود؛ لأن العبد أقرب ما يكون من ربه وهو ساجد.",
-            source: "صحيح مسلم 482."
+        { 
+            title: "4. دعاء عند الركوع", 
+            text: "«سُبْحَانَ رَبِّيَ الْعَظِيمِ» (ثلاث مرات)\nوَيُسْتَحَبُّ أَنْ يَقُولَ: «سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ اللَّهُمَّ اغْفِرْ لِي»", 
+            fadl: "تعظيم الرب جل وعلا في خضوع الركوع. قال ﷺ: «فَأَمَّا الرُّكُوعُ فَعَظِّمُوا فِيهِ الرَّبَّ» [رواه مسلم]، وفيه اتباع لسنة النبي ﷺ ومغفرة للذنوب." 
         },
-        {
-            title: "دعاء إضافي في السجود",
-            desc: "اللَّهُمَّ لَكَ سَجَدْتُ، وَبِكَ آمَنْتُ، وَلَكَ أَسْلَمْتُ، سَجَدَ وَجْهِيَ لِلَّذِي خَلَقَهُ وَصَوَّرَهُ، وَشَقَّ سَمْعَهُ وَبَصَرَهُ، تَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ.",
-            virtue: "من الأدعية المأثورة التي كان يقولها النبي ﷺ في سجوده.",
-            source: "صحيح مسلم 771."
+        { 
+            title: "5. دعاء الرفع من الركوع", 
+            text: "«سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ» (للإمام والمنفرد)\nثم يقول الجميع: «رَبَّنَا وَلَكَ الْحَمْدُ، حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ، مِلْءَ السَّمَاوَاتِ وَمِلْءَ الأَرْضِ وَمِلْءَ مَا بَيْنَهُمَا وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ»", 
+            fadl: "شكر الله على نعمة القيام، وقال النبي ﷺ لما قال رجل خلفه هذا الحمد: «رَأَيْتُ بِضْعَةً وَثَلاَثِينَ مَلَكًا يَبْتَدِرُونَهَا أَيُّهُمْ يَكْتُبُهَا أَوَّلُ» [رواه البخاري]." 
         },
-        {
-            title: "دعاء الجلوس بين السجدتين",
-            desc: "رَبِّ اغْفِرْ لِي، رَبِّ اغْفِرْ لِي.",
-            virtue: "ورد أن النبي ﷺ كان يكرر هذا الدعاء بين السجدتين.",
-            source: "سنن ابن ماجه 897؛ وصححه الألباني."
+        { 
+            title: "6. دعاء عند السجود", 
+            text: "«سُبْحَانَ رَبِّيَ الأَعْلَى» (ثلاث مرات)\nوَيُسْتَحَبُّ الدعاء بما يشاء ومنه: «اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ: دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلاَنِيَتَهُ وَسِرَّهُ»", 
+            fadl: "أقرب ما يكون العبد من ربه وهو ساجد. قال ﷺ: «أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ فَأَكْثِرُوا الدُّعَاءَ» [رواه مسلم]، وهو مظنة إجابة الدعاء رفعة للدرجات." 
         },
-        {
-            title: "دعاء أطول بين السجدتين",
-            desc: "اللَّهُمَّ اغْفِرْ لِي، وَارْحَمْنِي، وَعَافِنِي، وَاهْدِنِي، وَارْزُقْنِي.",
-            virtue: "دعاء جامع للمغفرة والرحمة والعافية والهداية والرزق، ورد في حديث حسنه أهل العلم.",
-            source: "سنن أبي داود 850؛ وحسنه الألباني."
+        { 
+            title: "7. دعاء الجلوس بين السجدتين", 
+            text: "«رَبِّ اغْفِرْ لِي، رَبِّ اغْفِرْ لِي»\nأو: «اللَّهُمَّ اغْفِرْ لِي، وَارْحَمْنِي، وَاهْدِنِي، وَاجْبُرْنِي، وَعَافِنِي، وَارْزُقْنِي، وَارْفَعْنِي»", 
+            fadl: "طلب جامع لكلم الخير في الدنيا والآخرة (المغفرة، الرحمة، الهداية، جبر الخاطر، العافية، والرزق) بين يدي الله أثناء الصلاة." 
         },
-        {
-            title: "دعاء الرفع من الركوع",
-            desc: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ. ثم يقول بعد الاعتدال: رَبَّنَا وَلَكَ الْحَمْدُ.",
-            virtue: "يقولها الإمام والمنفرد عند الرفع من الركوع، ويقول المأموم: ربنا ولك الحمد. وثبتت صيغ أخرى صحيحة للحمد.",
-            source: "صحيح البخاري وصحيح مسلم."
+        { 
+            title: "8. أدعية جوامع في الصلاة", 
+            text: "«اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْمًا كَثِيرًا، وَلاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ، فَاغْفِرْ لِي مَغْفِرَةً مِنْ عِنْدِكَ وَارْحَمْنِي إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ»", 
+            fadl: "علمها النبي ﷺ لأبي بكر الصديق رضي الله عنه ليدعو بها في صلاته، وهي تجمع الاعتراف بالذنب وسؤال المغفرة الشاملة." 
         },
-        {
-            title: "صيغة زيادة في حمد الله بعد الركوع",
-            desc: "رَبَّنَا وَلَكَ الْحَمْدُ، حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ.",
-            virtue: "ورد في فضلها أن ملائكة تسابقوا إلى كتابتها؛ لما فيها من حمد كثير طيب مبارك.",
-            source: "صحيح البخاري 799."
+        { 
+            title: "9. دعاء بعد التشهد قبل السلام", 
+            text: "«اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ جَهَنَّمَ، وَمِنْ عَذَابِ الْقَبْرِ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ»", 
+            fadl: "سنة مؤكدة أمر بها النبي ﷺ للحماية والوقاية من أكبر الفتن الأربع التي يصاب بها الإنسان في دنياه وبرزخه وآخرته." 
         },
-        {
-            title: "دعاء النبي ﷺ في الصلاة",
-            desc: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ، وَشُكْرِكَ، وَحُسْنِ عِبَادَتِكَ.",
-            virtue: "وصية نبوية لمعاذ رضي الله عنه أن يقولها دبر كل صلاة، ويجوز الدعاء بها في مواضع الدعاء.",
-            source: "سنن أبي داود 1522؛ وصححه الألباني."
+        { 
+            title: "10. دعاء النبي ﷺ في الطائف", 
+            text: "«اللَّهُمَّ إِلَيْكَ أَشْكُو ضُعْفَ قُوَّتِي، وَقِلَّةَ حِيلَتِي، وَهَوَانِي عَلَى النَّاسِ، يَا أَرْحَمَ الرَّاحِمِينَ، أَنْتَ رَبُّ الْمُسْتَضْعَفِينَ وَأَنْتَ رَبِّي، إِلَى مَنْ تَكِلُنِي؟ إِلَى بَعِيدٍ يَتَجَهَّمُنِي؟ أَمْ إِلَى عَدُوٍّ مَلَّكْتَهُ أَمْرِي؟ إِنْ لَمْ يَكُنْ بِكَ غَضَبٌ عَلَيَّ فَلاَ أُبَالِي، وَلَكِنَّ عَافِيَتَكَ هِيَ أَوْسَعُ لِي، أَعُوذُ بِنُورِ وَجْهِكَ الَّذِي أَشْرَقَتْ لَهُ الظُّلُمَاتُ، وَصَلُحَ عَلَيْهِ أَمْرُ الدُّنْيَا وَالآخِرَةِ مِنْ أَنْ تُنْزِلَ بِي غَضَبَكَ، أَوْ يَحِلَّ عَلَيَّ سَخَطُكَ، لَكَ الْعُتْبَى حَتَّى تَرْضَى، وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِكَ»", 
+            fadl: "من أروع الأدعية الإيمانية التي اللتجأ فيها رسول الله ﷺ لله عز وجل، ويدل على كمال التوكل والرضا بالله وشكوى الحال إليه سبحانه وملاذ لكل مكروب ومظلوم." 
         },
-        {
-            title: "دعاء بعد التشهد الأخير وقبل السلام",
-            desc: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ جَهَنَّمَ، وَمِنْ عَذَابِ الْقَبْرِ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ.",
-            virtue: "أمر النبي ﷺ بالاستعاذة من هذه الأربع قبل السلام. وبعدها يجوز للمصلي أن يدعو بما شاء من خيري الدنيا والآخرة.",
-            source: "صحيح مسلم 588؛ وصحيح البخاري."
-        },
-        {
-            title: "دعاء بعد الأذان",
-            desc: "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ.",
-            virtue: "من قاله بعد الأذان حلت له شفاعة النبي ﷺ كما ورد في الحديث الصحيح. ويُشرع أولاً أن يردد المسلم مثل ما يقول المؤذن، ثم يصلي على النبي ﷺ.",
-            source: "صحيح البخاري 614."
-        },
-        {
-            title: "الذكر بعد الوضوء",
-            desc: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ. اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ، وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ.",
-            virtue: "ورد في الحديث أن أبواب الجنة الثمانية تُفتح لقائله. وهذا الذكر يقال بعد إتمام الوضوء.",
-            source: "صحيح مسلم 234؛ وزيادة «اللهم اجعلني...» في جامع الترمذي 55."
-        },
-        {
-            title: "تنبيه مهم بشأن أدعية الوضوء",
-            desc: "لا يثبت دعاء مخصوص لكل عضو عند غسله (مثل دعاء غسل الوجه أو اليدين). فلا تُنسب هذه الأدعية إلى السنة. المشروع هو التسمية في أول الوضوء عند جمهور أهل العلم، ثم الذكر الثابت بعد الفراغ.",
-            virtue: "اتباع الوارد الثابت أولى من الالتزام بأدعية لا تثبت عن النبي ﷺ.",
-            source: "فتاوى أهل العلم؛ والذكر بعد الوضوء في صحيح مسلم 234."
-        },
-        {
-            title: "دعاء النبي المشهور عند رحلة الطائف",
-            desc: "اللَّهُمَّ إِلَيْكَ أَشْكُو ضَعْفَ قُوَّتِي، وَقِلَّةَ حِيلَتِي، وَهَوَانِي عَلَى النَّاسِ، يَا أَرْحَمَ الرَّاحِمِينَ، أَنْتَ رَبُّ الْمُسْتَضْعَفِينَ، وَأَنْتَ رَبِّي، إِلَى مَنْ تَكِلُنِي؟ إِلَى بَعِيدٍ يَتَجَهَّمُنِي، أَمْ إِلَى عَدُوٍّ مَلَّكْتَهُ أَمْرِي؟ إِنْ لَمْ يَكُنْ بِكَ عَلَيَّ غَضَبٌ فَلَا أُبَالِي، غَيْرَ أَنَّ عَافِيَتَكَ أَوْسَعُ لِي. أَعُوذُ بِنُورِ وَجْهِكَ الَّذِي أَشْرَقَتْ لَهُ الظُّلُمَاتُ، وَصَلَحَ عَلَيْهِ أَمْرُ الدُّنْيَا وَالْآخِرَةِ، أَنْ تُنْزِلَ بِي غَضَبَكَ، أَوْ تُحِلَّ عَلَيَّ سَخَطَكَ، لَكَ الْعُتْبَى حَتَّى تَرْضَى، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِكَ.",
-            virtue: "دعاء مشهور في كتب السيرة، ومعناه حسن، لكن الرواية التي تنسبه إلى النبي ﷺ في الطائف ضعيفة الإسناد؛ يُذكر بصيغة «رُوي» ولا يُجزم بثبوته حديثاً صحيحاً.",
-            source: "الطبراني في المعجم الكبير؛ وبيان درجته: الإسلام سؤال وجواب، فتوى 148943."
-        }
-    ],
-    rawatib: [
-        {
-            title: "ما هي السنن الرواتب؟",
-            desc: "هي ركعات نافلة مرتبطة بالصلوات المفروضة، تُصلّى قبل بعض الفرائض أو بعدها. والسنن الرواتب المؤكدة المشهورة اثنتا عشرة ركعة في اليوم والليلة: ركعتان قبل الفجر، وأربع قبل الظهر، وركعتان بعد الظهر، وركعتان بعد المغرب، وركعتان بعد العشاء.",
-            virtue: "من حافظ على اثنتي عشرة ركعة من السنة في اليوم والليلة بُني له بيت في الجنة.",
-            source: "جامع الترمذي 415؛ وسنن ابن ماجه 1140."
-        },
-        {
-            title: "ركعتا سنة الفجر",
-            desc: "ركعتان قبل صلاة الفجر.",
-            virtue: "قال النبي ﷺ: «ركعتا الفجر خير من الدنيا وما فيها».",
-            source: "صحيح مسلم 725."
-        },
-        {
-            title: "أربع ركعات قبل الظهر",
-            desc: "تُصلّى أربع ركعات قبل فرض الظهر، والأفضل أن تكون ركعتين ركعتين.",
-            virtue: "داوم النبي ﷺ على أربع قبل الظهر، وهي من الرواتب الداخلة في حديث البيت في الجنة.",
-            source: "جامع الترمذي 415؛ وسنن أبي داود 1250."
-        },
-        {
-            title: "ركعتان بعد الظهر",
-            desc: "تُصلّيان بعد فرض الظهر.",
-            virtue: "من السنن الرواتب المؤكدة الداخلة في الاثنتي عشرة ركعة.",
-            source: "جامع الترمذي 415."
-        },
-        {
-            title: "ركعتان بعد المغرب",
-            desc: "تُصلّيان بعد فرض المغرب.",
-            virtue: "من الرواتب التي حافظ عليها النبي ﷺ، وداخلة في حديث البيت في الجنة.",
-            source: "جامع الترمذي 415."
-        },
-        {
-            title: "ركعتان بعد العشاء",
-            desc: "تُصلّيان بعد فرض العشاء.",
-            virtue: "من الرواتب المؤكدة الداخلة في الاثنتي عشرة ركعة.",
-            source: "جامع الترمذي 415."
-        },
-        {
-            title: "فضل المحافظة على الرواتب",
-            desc: "اجعل لك برنامجاً ثابتاً: 2 قبل الفجر، 4 قبل الظهر، 2 بعد الظهر، 2 بعد المغرب، 2 بعد العشاء. وإذا فاتتك نافلة فاقضها عند من يقول بمشروع قضاء الرواتب، مع مراعاة أحكام أوقات النهي.",
-            virtue: "المداومة على هذه الاثنتي عشرة سبب لبناء بيت في الجنة، كما أخبر النبي ﷺ.",
-            source: "صحيح مسلم 728؛ وجامع الترمذي 415."
-        },
-        {
-            title: "تنبيه: سنة العصر",
-            desc: "ورد الترغيب في صلاة أربع ركعات قبل العصر، لكنها ليست ضمن الرواتب الاثنتي عشرة المؤكدة المذكورة في حديث أم حبيبة.",
-            virtue: "قال النبي ﷺ: «رحم الله امرأً صلى قبل العصر أربعاً».",
-            source: "سنن أبي داود 1271؛ وجامع الترمذي 430."
+        { 
+            title: "11. سنن الرواتب وفضلها", 
+            text: "تفصيل سنن الرواتب (12 ركعة في اليوم والليلة):\n• الفجر: ركعتان قبل الفريضة.\n• الظهر: 4 ركعات قبل الفريضة (بتسليمتين) وركعتان بعدها.\n• المغرب: ركعتان بعد الفريضة.\n• العشاء: ركعتان بعد الفريضة.", 
+            fadl: "قال رسول الله ﷺ: «مَنْ صَلَّى فِي يَوْمٍ وَلَيْلَةٍ ثِنْتَيْ عَشْرَةَ رَكْعَةً بُنِيَ لَهُ بَيْتٌ فِي الْجَنَّةِ» [رواه مسلم]. وهي تجبر ما قد يقع في الفروض من نقص وتزيد الحسنات وتدرك بها محبة الله تعالى." 
         }
     ]
 };
@@ -1019,16 +939,31 @@ function loadAdhkarCategory(cat, e) {
     }
     const container = document.getElementById("adhkarContainer");
     container.innerHTML = "";
-    adhkarData[cat].forEach(item => {
-        container.innerHTML += `
-            <div style="background:var(--bg-color); border:1px solid var(--border-color); border-radius:12px; padding:15px; margin-bottom:12px;">
-                <h4 style="font-family:'Amiri'; font-size:1.3rem; color:var(--primary-color); margin-bottom:8px;">${item.title}</h4>
-                <p style="font-size:1.08rem; font-family:'Amiri'; line-height:2; white-space:normal;">${item.desc}</p>
-                ${item.virtue ? `<div style="margin-top:10px; padding:10px; border-right:3px solid var(--accent-color); background:rgba(212,175,55,.09); border-radius:8px;"><strong>🌟 الفضل / البيان:</strong> ${item.virtue}</div>` : ""}
-                ${item.source ? `<p style="margin-top:8px; color:var(--text-muted); font-size:.82rem;"><strong>المصدر:</strong> ${item.source}</p>` : ""}
-            </div>
-        `;
-    });
+
+    if (cat === 'duas') {
+        adhkarData[cat].forEach(item => {
+            let formattedText = item.text.replace(/\n/g, '<br>');
+            container.innerHTML += `
+                <div class="dua-card">
+                    <div class="dua-title">${item.title}</div>
+                    <div class="dua-text">${formattedText}</div>
+                    <div class="dua-fadl">
+                        <span class="dua-fadl-title">✨ فضل هذا الدعاء / السنة:</span>
+                        ${item.fadl}
+                    </div>
+                </div>
+            `;
+        });
+    } else {
+        adhkarData[cat].forEach(item => {
+            container.innerHTML += `
+                <div style="background:var(--bg-color); border:1px solid var(--border-color); border-radius:12px; padding:15px; margin-bottom:12px;">
+                    <h4 style="font-family:'Amiri'; font-size:1.3rem; color:var(--primary-color); margin-bottom:6px;">${item.title}</h4>
+                    <p style="font-size:1rem; font-family:'Amiri'; line-height:1.8;">${item.desc}</p>
+                </div>
+            `;
+        });
+    }
 }
 loadAdhkarCategory('sabah');
 
