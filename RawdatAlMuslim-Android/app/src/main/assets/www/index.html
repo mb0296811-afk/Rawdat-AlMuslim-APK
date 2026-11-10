@@ -164,7 +164,7 @@ button { border: none; background: var(--secondary-color); color: white; font-we
 button:hover { background: var(--primary-color); transform: translateY(-1px); }
 .secondary-btn { background: var(--bg-color); color: var(--primary-color); border: 1px solid var(--border-color); }
 
-/* تحسين شكل إعدادات الآذان والتبديلات الفاخرة */
+/* إعدادات الآذان والتبديلات الفاخرة */
 .settings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -182,23 +182,10 @@ button:hover { background: var(--primary-color); transform: translateY(-1px); }
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     transition: all 0.2s ease;
 }
-.setting-card:hover {
-    border-color: var(--accent-color);
-}
-.setting-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.setting-title {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-}
-.setting-desc {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
+.setting-card:hover { border-color: var(--accent-color); }
+.setting-info { display: flex; align-items: center; gap: 10px; }
+.setting-title { font-weight: 700; font-size: 0.9rem; color: var(--primary-color); }
+.setting-desc { font-size: 0.75rem; color: var(--text-muted); }
 
 /* تصميم السويتش الرائع (Toggle Switch) */
 .switch {
@@ -378,19 +365,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     <section id="salatyTab" class="section-pane">
         <div class="box">
-            <h2>🕋 مواقيت الصلاة والآذان والتحكم بالموقع</h2>
+            <h2>🕋 مواقيت الصلاة والآذان والتنبيهات</h2>
             
-            <!-- قسم تحديد الموقع تلقائياً أو يدوياً -->
-            <div style="background: var(--bg-color); padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--border-color);">
-                <label style="font-weight: bold; margin-bottom: 8px; color: var(--primary-color);">📍 إعدادات الموقع الجغرافي:</label>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                    <button onclick="detectLocationAuto()" style="flex: 1; min-width: 160px; padding: 10px; background: var(--secondary-color);">تحديد الموقع تلقائياً 🛰️</button>
-                    <input type="text" id="manualLocationInput" placeholder="أو أدخل اسم المدينة يدوياً..." style="flex: 2; min-width: 200px;">
-                    <button onclick="saveManualLocation()" class="secondary-btn" style="width: auto; padding: 10px 15px;">حفظ المدينة</button>
-                </div>
-                <p id="locationStatusText" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">الموقع الحالي: لم يتم التحديد (افتراضي)</p>
-            </div>
-
             <!-- تصميم عصري وراقي لأزرار وضع الصامت وخلفية الشاشة الكاملة -->
             <div class="settings-grid">
                 <div class="setting-card">
@@ -441,10 +417,15 @@ html, body { max-width: 100%; overflow-x: hidden; }
     </section>
 
     <section id="quranTab" class="section-pane">
-        <div class="box">
+        <div class="box" style="text-align: center;">
             <h2>📖 قراءة القرآن الكريم</h2>
-            <p style="margin-bottom: 12px; color: var(--text-muted);">تصفح المصحف الشريف بسهولة مباشرة من ملف المصحف الخاص بك:</p>
-            <div class="quran-container">
+            <p style="margin-bottom: 20px; color: var::var(--text-muted); font-size: 1.1rem;">تصفح المصحف الشريف المبارك بكل سهولة ويسر:</p>
+            
+            <a href="standard1-quran.pdf" target="_blank" style="display: inline-block; background: var(--secondary-color); color: var(--accent-color); padding: 16px 35px; border-radius: 12px; font-size: 1.3rem; font-family: 'Amiri', serif; font-weight: bold; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.15); border: 2px solid var(--accent-color); transition: transform 0.2s;">
+                اضغط لقراءة القرآن PDF 📖
+            </a>
+
+            <div class="quran-container" style="margin-top: 25px;">
                 <iframe src="standard1-quran.pdf" class="pdf-viewer-frame" title="قراءة القرآن الكريم"></iframe>
             </div>
         </div>
@@ -691,50 +672,6 @@ function updateGlobalAdhan(val) {
     renderPrayers();
     syncNativePrayerAlarms();
 }
-
-// دالة لتحديد الموقع تلقائياً عبر GPS المتصفح/الجهاز
-function detectLocationAuto() {
-    const statusText = document.getElementById("locationStatusText");
-    if (navigator.geolocation) {
-        statusText.textContent = "جاري تحديد الموقع تلقائياً عبر GPS...";
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude.toFixed(2);
-                const lon = position.coords.longitude.toFixed(2);
-                const locStr = `إحداثيات تلقائية (${lat}, ${lon})`;
-                localStorage.setItem('user_location_name', locStr);
-                statusText.textContent = "الموقع الحالي: " + locStr;
-                alert("تم تحديد الموقع بنجاح!");
-            },
-            (error) => {
-                statusText.textContent = "تعذر تحديد الموقع تلقائياً. يرجى إدخاله يدوياً.";
-                alert("تعذر الوصول لخدمة الموقع. تأكد من تفعيل الـ GPS وصلاحيات الموقع.");
-            }
-        );
-    } else {
-        alert("متصفحك أو جهازك لا يدعم تحديد الموقع الجغرافي.");
-    }
-}
-
-// دالة حفظ المدينة يدوياً
-function saveManualLocation() {
-    const val = document.getElementById("manualLocationInput").value.trim();
-    if(val) {
-        localStorage.setItem('user_location_name', val);
-        document.getElementById("locationStatusText").textContent = "الموقع الحالي: " + val;
-        alert("تم حفظ المدينة: " + val);
-    } else {
-        alert("يرجى كتابة اسم المدينة أولاً.");
-    }
-}
-
-(function restoreLocation() {
-    const savedLoc = localStorage.getItem('user_location_name');
-    if(savedLoc) {
-        document.getElementById("locationStatusText").textContent = "الموقع الحالي: " + savedLoc;
-        document.getElementById("manualLocationInput").value = savedLoc;
-    }
-})();
 
 function renderPrayers() {
     const container = document.getElementById("prayersListContainer");
